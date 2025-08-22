@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -31,6 +32,9 @@ public class Amos {
             //Check list
             unmarkAsDone(res);
             echo();
+        }  else if (res.startsWith("delete ")){
+            //Check list
+            delete(res);
         } else {
             //add into list
             add(res);
@@ -131,6 +135,26 @@ public class Amos {
         System.out.println("\t Now you have " + lst.size() + " tasks in the list.");
         System.out.println(LINE);
         echo();
+    }
+
+    public static void delete(String res) {
+        int size = lst.size();
+        String str = res.substring(6).trim();
+        int value = Integer.parseInt(str);
+        if(value > 0 && value <= size){
+            Task tsk = lst.get(value - 1);
+            System.out.println("\t Noted. I've removed this task: ");
+            System.out.println("\t\t" + tsk);
+            lst.remove(value - 1);
+            System.out.println("\t Now you have " + lst.size() + " tasks in the list.");
+            System.out.println(LINE);
+            echo();
+        } else {
+            System.out.println("\t No such task to be deleted.");
+            System.out.println(LINE);
+            echo();
+        }
+
     }
 
     public static void main(String[] args) {
