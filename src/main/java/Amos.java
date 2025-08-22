@@ -39,7 +39,7 @@ public class Amos {
 
     public static void bye() {
         //Handle bye bye
-        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println("\t Bye. Hope to see you again soon!");
         System.out.println(LINE);
     }
 
@@ -89,12 +89,36 @@ public class Amos {
     public static void add(String res) {
         Task task;
         if(res.startsWith("todo ")){
-            task = new Todo(res.substring(5).trim());
+            String des = res.substring(4).trim();
+            if(des.isEmpty()){
+                System.out.println("\t OOPS!!! The description of a todo cannot be empty.");
+                System.out.println(LINE);
+                echo();
+                return;
+            } else {
+                task = new Todo(des);
+            }
         } else if(res.startsWith("event ")){
-            task = new Event(res.substring(6).trim());
+            String des = res.substring(5).trim();
+            if(des.isEmpty()){
+                System.out.println("\t OOPS!!! The description of a event cannot be empty.");
+                System.out.println(LINE);
+                echo();
+                return;
+            } else {
+                task = new Event(des);
+            }
 
         } else if(res.startsWith("deadline ")){
-            task = new Deadline(res.substring(9).trim());
+            String des = res.substring(8).trim();
+            if(des.isEmpty()){
+                System.out.println("\t OOPS!!! The description of a deadline cannot be empty.");
+                System.out.println(LINE);
+                echo();
+                return;
+            } else {
+                task = new Deadline(des);
+            }
         } else{
             System.out.println("\t OOPS!!! I'm sorry, but I don't know what that means :-(");
             System.out.println(LINE);
@@ -111,8 +135,8 @@ public class Amos {
 
     public static void main(String[] args) {
         System.out.println(LINE);
-        System.out.println("\tHello! I'm Amos");
-        System.out.println("\tWhat can I do for you?");
+        System.out.println("\t Hello! I'm Amos");
+        System.out.println("\t What can I do for you?");
         System.out.println(LINE);
         echo();
     }
