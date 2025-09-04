@@ -1,44 +1,24 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    protected  final String from;
-    protected  final String to;
-
-    public Event(String des) throws AmosTaskException {
-        super(parseName(des));
-        String[] date = parseDate(des);
-        this.from = date[0].trim();
-        this.to = date[1].trim();
-    }
-
-    public static String parseName(String des) throws AmosTaskException {
-        int fromIndex = des.indexOf("|From:");
-        if (fromIndex == -1) {
-            throw new AmosTaskException("event");
-        }
-        return des.substring(0, fromIndex).trim();
-    }
-
-    public static String[] parseDate(String des) throws AmosTaskException {
-        try {
-            String[] parts = des.split("\\|From:", 2);
-            String[] dateRange = parts[1].split("\\|To:", 2);
-
-            String from = dateRange[0].trim();
-            String to = dateRange[1].trim();
-
-            return new String[]{from, to};
-        } catch (Exception e) {
-            throw new AmosTaskException("event");
-        }
+    protected final LocalDateTime from;
+    protected final LocalDateTime to;
+    protected final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    public Event(String des, LocalDateTime from, LocalDateTime to) throws AmosException {
+        super(des);
+        this.from = from;
+        this.to = to;
     }
 
     @Override
     public String writeTxt() {
-        return "E |" + super.writeTxt() + " |From:"+from + " |To: " + to ;
+        return "E |" + super.writeTxt() + " |From:"+from.format(FORMATTER) + " |To: " + to.format(FORMATTER) ;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(From: " + from + " |To: " + to + ")";
+        return "[E]" + super.toString() + "(From: " + from.format(FORMATTER) + " |To: " + to.format(FORMATTER) + ")";
     }
 
 }

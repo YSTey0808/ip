@@ -1,4 +1,3 @@
 T |  | Submit
-E |  | MSL UFO |From:4Aug2025 |To: 5Aug2025
 T |  | Assignment 2 Cs2100
-D |X | CS2103T |By:23Sep2025
+E |1 | UFO'20 |From:04/08/2025 00:00 |To: 08/08/2025 00:00
