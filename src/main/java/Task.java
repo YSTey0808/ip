@@ -11,12 +11,26 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void markAsDone() {
-        this.isDone = true;
+    public void markAsDone() throws AmosMarkingException {
+        if(this.isDone){
+            throw new AmosMarkingException(isDone);
+        } else {
+            this.isDone = true;
+
+        }
+
     }
 
-    public void unmarkAsDone() {
-        this.isDone = false;
+    public void unmarkAsDone() throws AmosMarkingException {
+        if(this.isDone){
+            this.isDone = false;
+        } else {
+            throw new AmosMarkingException(isDone);
+        }
+    }
+
+    public String writeTxt(){
+        return getStatusIcon()+" | "+this.description;
     }
 
     @Override
