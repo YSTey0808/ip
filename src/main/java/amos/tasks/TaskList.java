@@ -65,4 +65,19 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Returns the task with the similar description
+     *
+     * @return the found task with same description
+     */
+    public TaskList find(String des) {
+        TaskList temp = new TaskList();
+        for(Task task: this.tasks){
+            if(task.getDescription().contains(des)){
+                temp.add(task);
+            }
+        }
+        return temp;
+    }
+
 }

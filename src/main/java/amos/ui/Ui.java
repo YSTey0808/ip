@@ -67,7 +67,6 @@ public class Ui {
      *
      * @param lst the task list to display
      */
-
     public void printList(TaskList lst) {
         if (lst.size() <= 0) {
             System.out.println("\t Nothing in the list now.\n");
@@ -143,7 +142,6 @@ public class Ui {
      * @param task the task that was deleted
      * @param size the current size of the task list
      */
-
     public void printTaskDeleted(Task task, int size) {
         System.out.println("\t Noted. I've removed this task:");
         System.out.println("\t\t" + task);
@@ -174,6 +172,24 @@ public class Ui {
      */
     public void printInvalidDelete() {
         System.out.println("\t No such task to be deleted.\n");
+        printLine();
+    }
+
+    /**
+     * Prints found tasks in the task list.
+     *
+     * @param lst the task list to display
+     */
+    public void printFindList(TaskList lst){
+        if(lst.size() <= 0) {
+            System.out.println("\t Can't find such task! PLS try again!\n");
+        } else {
+            System.out.println("\t Here are the matching tasks in your list:");
+            for(int i = 0; i < lst.size(); i++){
+                int j = i+1;
+                System.out.println("\t " + j + ". " + lst.get(i) );
+            }
+        }
         printLine();
     }
 }

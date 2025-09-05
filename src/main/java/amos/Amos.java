@@ -100,6 +100,10 @@ public class Amos {
                     addDeadline(res_arr[1]);
                     break;
 
+                case FIND:
+                    find(res_arr[1]);
+                    break;
+
                 default:
                     throw new AmosEmptyException();
                 }
@@ -168,7 +172,6 @@ public class Amos {
         } catch (AmosTaskException e) {
             ui.printEmptyDescription("todo task");
         }
-
     }
 
     /**
@@ -232,6 +235,15 @@ public class Amos {
         }
     }
 
+    /**
+     * Find a task based on its description.
+     *
+     * @param des the description of task want to delete
+     */
+    public void find(String des) {
+        TaskList temp = lst.find(des);
+        ui.printFindList(temp);
+    }
     /**
      * The entry point of the application.
      *
