@@ -1,9 +1,14 @@
 package amos.tasks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
     private final List<Task> tasks;
+
+    public TaskList() {
+        tasks = new ArrayList<>();
+    }
 
     public TaskList(List<Task> loadedTasks) {
         tasks = loadedTasks;

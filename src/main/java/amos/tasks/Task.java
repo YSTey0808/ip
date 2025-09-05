@@ -19,6 +19,10 @@ public class Task {
         return (isDone ? "1" : " ");
     }
 
+    public String getDescription(){
+        return this.description;
+    }
+
     public void markAsDone() throws AmosMarkingException {
         if(this.isDone){
             throw new AmosMarkingException(true);
