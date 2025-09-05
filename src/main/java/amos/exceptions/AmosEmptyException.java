@@ -1,3 +1,5 @@
+package amos.exceptions;
+
 public class AmosEmptyException extends AmosException{
     @Override
     public String toString() {

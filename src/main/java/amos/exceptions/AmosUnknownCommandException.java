@@ -1,3 +1,5 @@
+package amos.exceptions;
+
 public class AmosUnknownCommandException extends AmosException{
     private final String command;
 

@@ -1,3 +1,5 @@
+package amos.exceptions;
+
 public class AmosTaskException extends AmosException{
     private final String task;
 

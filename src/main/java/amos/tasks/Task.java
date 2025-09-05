@@ -1,3 +1,7 @@
+package amos.tasks;
+
+import amos.exceptions.AmosMarkingException;
+
 public class Task {
     protected String description;
     protected boolean isDone;

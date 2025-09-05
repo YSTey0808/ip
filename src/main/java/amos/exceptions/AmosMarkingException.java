@@ -1,3 +1,5 @@
+package amos.exceptions;
+
 public class AmosMarkingException extends AmosException{
     private final boolean mark;
 

@@ -1,3 +1,5 @@
+package amos.tasks;
+
 public class Todo extends Task{
     public Todo(String des){
         super(des);

@@ -1,3 +1,5 @@
+package amos.exceptions;
+
 public class AmosUnfoundTaskException extends AmosException{
     @Override
     public String toString() {

@@ -1,3 +1,5 @@
+package amos.exceptions;
+
 public class AmosTimeException  extends  AmosException{
     @Override
     public String toString() {

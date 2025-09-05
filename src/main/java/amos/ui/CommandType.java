@@ -1,3 +1,5 @@
+package amos.ui;
+
 public enum CommandType {
     BYE, LIST, UNMARK,
     TODO, EVENT, DEADLINE,

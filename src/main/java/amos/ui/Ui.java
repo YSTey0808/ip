@@ -1,3 +1,7 @@
+package amos.ui;
+
+import amos.tasks.*;
+
 import java.util.Scanner;
 
 public class Ui {

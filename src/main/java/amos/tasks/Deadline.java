@@ -1,3 +1,7 @@
+package amos.tasks;
+
+import amos.exceptions.AmosTaskException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

@@ -1,3 +1,5 @@
+package amos.exceptions;
+
 public class AmosFileException extends AmosException{
     @Override
     public String toString() {

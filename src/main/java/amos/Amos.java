@@ -1,3 +1,10 @@
+package amos;
+
+import amos.exceptions.*;
+import amos.tasks.*;
+import amos.storage.*;
+import amos.ui.*;
+
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
