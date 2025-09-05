@@ -5,10 +5,24 @@ import amos.exceptions.AmosException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a start and end time.
+ *
+ * <p>An Event task has a description, a start time, and an end time.</p>
+ */
 public class Event extends Task {
     protected final LocalDateTime from;
     protected final LocalDateTime to;
     protected final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+    /**
+     * Creates an Event task with a description, start time, and end time.
+     *
+     * @param des the task description
+     * @param from the start date/time
+     * @param to the end date/time
+     * @throws AmosException if task creation fails
+     */
     public Event(String des, LocalDateTime from, LocalDateTime to) throws AmosException {
         super(des);
         this.from = from;

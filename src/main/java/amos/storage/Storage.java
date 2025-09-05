@@ -10,15 +10,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving tasks from/to a file.
+ *
+ * <p>This class is responsible for reading tasks from a text file,
+ * creating the file if it does not exist, parsing task data,
+ * and writing the tasks back to the file.</p>
+ */
 public class Storage {
     private final String filePath;
 
-    public Storage(String filePath){
+    /**
+     * Creates a Storage object for a given file path.
+     *
+     * @param filePath the path to the storage file
+     */    public Storage(String filePath){
         this.filePath = filePath;
     }
 
-    public List<Task> loadFile() {
-        ArrayList<Task> lst = new ArrayList<>();
+    /**
+     * Loads tasks from the file.
+     *
+     * @return a list of tasks loaded from the file
+     */
+    public List<Task> loadFile() {ArrayList<Task> lst = new ArrayList<>();
         try {
             File f = new File(filePath);
             Scanner sc = new Scanner(f);
@@ -50,6 +65,10 @@ public class Storage {
         return lst;
 
     }
+
+    /**
+     * Creates the storage file and its parent directory if they do not exist.
+     */
     public void createTxt(){
         File db = new File(filePath);
         File dir = new File(db.getParent());
@@ -62,6 +81,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads a single task from a line in the file.
+     *
+     * @param entry the line representing a task
+     * @return the parsed Task
+     * @throws AmosException if the line is invalid or the task type is unknown
+     */
     private Task readFile(String entry) throws AmosException{
         String[] input = entry.split("\\|", 3);
         if(input.length<3){
@@ -94,6 +120,12 @@ public class Storage {
         return tsk;
     }
 
+    /**
+     * Writes all tasks to the storage file.
+     *
+     * @param lst the task list to write
+     * @throws IOException if an error occurs during writing
+     */
     public void write(TaskList lst) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
         for(int i = 0; i < lst.size(); i++){

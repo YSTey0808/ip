@@ -9,21 +9,42 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The main class for the Amos task management application.
+ *
+ * <p>This class handles initializing the storage, task list, and user interface,
+ * processing user commands in a loop, and delegating tasks to the appropriate
+ * methods such as adding, marking, unmarking, or deleting tasks.</p>
+ */
 public class Amos {
+    /** Default folder path for the data file. */
     public static final String FILEPATH = "./data";
+
+    /** Default data file name. */
     public static final String FILENAME = "./Amos.txt";
+
+    /** Full path to the data file. */
     public static final String PATH = Paths.get(FILEPATH,FILENAME).toString();
 
     private final Storage storage;
     private final TaskList lst;
     private final Ui ui;
 
+    /**
+     * Constructs an instance of the Amos app with the specified file path.
+     *
+     * @param filePath the path to the data file to load and save tasks
+     */
     public Amos(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         lst = new TaskList(storage.loadFile());
     }
 
+    /**
+     * Starts the application, displaying a greeting and processing user commands
+     * until the user types "Bye" to exit.
+     */
     public void run() {
         ui.greet();
         while(true){
@@ -75,6 +96,9 @@ public class Amos {
         }
     }
 
+    /**
+     * Saves all tasks to storage and displays a goodbye message.
+     */
     public void bye() {
         try {
             storage.write(lst);
@@ -84,6 +108,12 @@ public class Amos {
         }
     }
 
+    /**
+     * Marks a task as done based on its index.
+     *
+     * @param value_str the 1-based index of the task to mark as done
+     * @throws AmosException if the task index is invalid or not found
+     */
     public void markAsDone(String value_str) throws AmosException {
         try {
             int value = Parser.parseIndex(value_str);
@@ -95,6 +125,12 @@ public class Amos {
         }
     }
 
+    /**
+     * Unmarks a task as not done based on its index.
+     *
+     * @param value_str the 1-based index of the task to unmark
+     * @throws AmosException if the task index is invalid or not found
+     */
     public void unmarkAsDone(String value_str) throws AmosException {
         try {
             int value = Parser.parseIndex(value_str);
@@ -106,6 +142,11 @@ public class Amos {
         }
     }
 
+    /**
+     * Adds a new Todo task with the given description.
+     *
+     * @param des the description of the Todo task
+     */
     private void addTodo(String des){
        try{
            Task task = Parser.parseTodo(des);
@@ -117,6 +158,12 @@ public class Amos {
 
     }
 
+    /**
+     * Adds a new Deadline task with the given description and due date.
+     *
+     * @param des the description and due date in the format "description|By:dd/MM/yyyy HH:mm"
+     * @throws AmosTaskException if the input is invalid or cannot be parsed
+     */
     private void addDeadline(String des) throws AmosTaskException {
         try{
             Task task = Parser.parseDeadline(des);
@@ -131,6 +178,12 @@ public class Amos {
         }
     }
 
+    /**
+     * Adds a new Event task with the given description, start time, and end time.
+     *
+     * @param des the description and time in the format "description|From:dd/MM/yyyy HH:mm|To:dd/MM/yyyy HH:mm"
+     * @throws AmosException if the input is invalid, times are inconsistent, or parsing fails
+     */
     private void addEvent(String des) throws AmosException {
         try {
             Task task = Parser.parseEvent(des);
@@ -148,6 +201,11 @@ public class Amos {
 
     }
 
+    /**
+     * Deletes a task based on its index.
+     *
+     * @param des the 1-based index of the task to delete
+     */
     public void delete(String des) {
         try{
             int value = Parser.parseIndex(des);
@@ -160,7 +218,11 @@ public class Amos {
             ui.printException(e);
         }
     }
-
+    /**
+     * The entry point of the application.
+     *
+     * @param args command-line arguments (ignored)
+     */
     public static void main(String[] args) {
         new Amos(PATH).run();
     }

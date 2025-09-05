@@ -7,7 +7,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A class for parsing user input into commands and tasks.
+ *
+ * <p>Methods in this class can convert user input into:
+ * <ul>
+ *   <li>{@link CommandType}</li>
+ *   <li>{@link Todo}</li>
+ *   <li>{@link Event}</li>
+ *   <li>{@link Deadline}</li>
+ * </ul>
+ * It also validates input and throws the appropriate exceptions.
+ * </p>
+ */
 public class Parser {
+
+    /**
+     * Converts a string command into a {@link CommandType}.
+     *
+     * @param cmd the command string
+     * @return the corresponding {@link CommandType}
+     * @throws AmosUnknownCommandException if the command is not recognized
+     */
     public static CommandType getCommand(String cmd) throws AmosUnknownCommandException {
         try {
             return  CommandType.valueOf(cmd.toUpperCase());
@@ -21,6 +42,13 @@ public class Parser {
         return LocalDateTime.parse(input.trim(), formatter);
     }
 
+    /**
+     * Creates a {@link Todo} task from a description.
+     *
+     * @param des the task description
+     * @return a {@link Todo} task
+     * @throws AmosTaskException if the description is empty
+     */
     public static Task parseTodo(String des) throws AmosTaskException {
         if (des == null || des.trim().isEmpty()) {
             throw new AmosTaskException("todo");
@@ -28,6 +56,13 @@ public class Parser {
         return new Todo(des.trim());
     }
 
+    /**
+     * Creates an {@link Event} task from a description with start and end times.
+     *
+     * @param des the event string in "description|From:dd/MM/yyyy HH:mm|To:dd/MM/yyyy HH:mm" format
+     * @return an {@link Event} task
+     * @throws AmosException if the description is empty, required fields are missing, or start time is after end time
+     */
     public static Event parseEvent(String des) throws AmosException {
         if (des == null || des.trim().isEmpty()) {
             throw new AmosTaskException("event");
@@ -49,6 +84,13 @@ public class Parser {
         return new Event(description, from, to);
     }
 
+    /**
+     * Creates a {@link Deadline} task from a description with a due date.
+     *
+     * @param des the deadline string in "description|By:dd/MM/yyyy HH:mm" format
+     * @return a {@link Deadline} task
+     * @throws AmosException if the description is empty or the "|By:" field is missing
+     */
     public static Deadline parseDeadline(String des) throws AmosException {
         if (des == null || des.trim().isEmpty()) {
             throw new AmosTaskException("deadline");
@@ -65,6 +107,13 @@ public class Parser {
         return new Deadline(description, by);
     }
 
+    /**
+     * Converts a string to a 0-based task index.
+     *
+     * @param str the string representing a 1-based index
+     * @return the 0-based index
+     * @throws AmosUnfoundTaskException if the string is not a valid number
+     */
     public static int parseIndex(String str) throws AmosUnfoundTaskException {
 
         try {
