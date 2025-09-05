@@ -1,14 +1,22 @@
 package amos.storage;
 
-import amos.exceptions.*;
-import amos.tasks.*;
-import amos.ui.Parser;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import amos.exceptions.AmosException;
+import amos.exceptions.AmosFileException;
+import amos.exceptions.AmosUnknownCommandException;
+import amos.tasks.Task;
+import amos.tasks.TaskList;
+import amos.tasks.Todo;
+import amos.ui.Parser;
 
 /**
  * Handles loading and saving tasks from/to a file.
@@ -24,7 +32,8 @@ public class Storage {
      * Creates a Storage object for a given file path.
      *
      * @param filePath the path to the storage file
-     */    public Storage(String filePath){
+     */
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -33,32 +42,31 @@ public class Storage {
      *
      * @return a list of tasks loaded from the file
      */
-    public List<Task> loadFile() {ArrayList<Task> lst = new ArrayList<>();
+    public List<Task> loadFile() {
+        ArrayList<Task> lst = new ArrayList<>();
         try {
             File f = new File(filePath);
             Scanner sc = new Scanner(f);
             boolean dateChecker = true;
             boolean errorChecker = true;
-            while(sc.hasNextLine()){
+            while (sc.hasNextLine()) {
                 String entry = sc.nextLine();
                 try {
                     lst.add(readFile(entry));
-                } catch(DateTimeParseException e) {
-                    if(dateChecker){
+                } catch (DateTimeParseException e) {
+                    if (dateChecker) {
                         System.out.println("\t Make sure the start/end time in the format of <DD/MM/YY HH:MM>!\n");
-//                        System.out.println(LINE);
                         dateChecker = false;
                     }
-                } catch(AmosException e){
-                    if(errorChecker){
-                        System.out.printf("\t %s\n\n",e);
-//                        System.out.println(LINE);
+                } catch (AmosException e) {
+                    if (errorChecker) {
+                        System.out.printf("\t %s\n\n", e);
                         errorChecker = false;
                     }
                 }
             }
             sc.close();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             createTxt();
         }
 
@@ -66,16 +74,17 @@ public class Storage {
 
     }
 
+
     /**
      * Creates the storage file and its parent directory if they do not exist.
      */
-    public void createTxt(){
+    public void createTxt() {
         File db = new File(filePath);
         File dir = new File(db.getParent());
         dir.mkdir();
         try {
             db.createNewFile();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Sry, there might have error somewhere!");
             System.out.println("Error when creating database!!!");
         }
@@ -88,9 +97,9 @@ public class Storage {
      * @return the parsed Task
      * @throws AmosException if the line is invalid or the task type is unknown
      */
-    private Task readFile(String entry) throws AmosException{
+    private Task readFile(String entry) throws AmosException {
         String[] input = entry.split("\\|", 3);
-        if(input.length<3){
+        if (input.length < 3) {
             throw new AmosFileException();
         }
         String command = input[0].trim();
@@ -98,23 +107,23 @@ public class Storage {
         String des = input[2].trim();
         Task tsk;
 
-        switch(command) {
-            case "T":
-                tsk = new Todo(des);
-                break;
+        switch (command) {
+        case "T":
+            tsk = new Todo(des);
+            break;
 
-            case "E":
-                tsk = Parser.parseEvent(des);
-                break;
+        case "E":
+            tsk = Parser.parseEvent(des);
+            break;
 
-            case "D":
-                tsk = Parser.parseDeadline(des);
-                break;
+        case "D":
+            tsk = Parser.parseDeadline(des);
+            break;
 
-            default:
-                throw new AmosUnknownCommandException(command);
+        default:
+            throw new AmosUnknownCommandException(command);
         }
-        if(marking.equals("1")){
+        if (marking.equals("1")) {
             tsk.markAsDone();
         }
         return tsk;
@@ -128,7 +137,7 @@ public class Storage {
      */
     public void write(TaskList lst) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-        for(int i = 0; i < lst.size(); i++){
+        for (int i = 0; i < lst.size(); i++) {
             Task tsk = lst.get(i);
             bw.write(tsk.writeTxt());
             bw.newLine();

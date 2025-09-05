@@ -1,6 +1,6 @@
 package amos.exceptions;
 
-public class AmosMarkingException extends AmosException{
+public class AmosMarkingException extends AmosException {
     private final boolean mark;
 
     public AmosMarkingException(boolean mark) {
@@ -9,7 +9,7 @@ public class AmosMarkingException extends AmosException{
 
     @Override
     public String toString() {
-        if(mark){
+        if (mark) {
             return String.format("%s \n\t Opps! This has already been marked",
                     super.toString()
             );

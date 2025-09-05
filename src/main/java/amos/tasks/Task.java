@@ -36,7 +36,7 @@ public class Task {
      *
      * @return "1" if done, " " if not done
      */
-    public String getTxtIcon(){
+    public String getTxtIcon() {
         return (isDone ? "1" : " ");
     }
 
@@ -45,7 +45,7 @@ public class Task {
      *
      * @return the description string
      */
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
 
@@ -55,7 +55,7 @@ public class Task {
      * @throws AmosMarkingException if the task is already marked
      */
     public void markAsDone() throws AmosMarkingException {
-        if(this.isDone){
+        if (this.isDone) {
             throw new AmosMarkingException(true);
         } else {
             this.isDone = true;
@@ -69,20 +69,21 @@ public class Task {
      * @throws AmosMarkingException if the task is already unmarked
      */
     public void unmarkAsDone() throws AmosMarkingException {
-        if(this.isDone){
+        if (this.isDone) {
             this.isDone = false;
         } else {
             throw new AmosMarkingException(false);
         }
     }
 
+
     /**
      * Formats the task as a line for writing to file.
      *
      * @return the task as a string for storage
      */
-    public String writeTxt(){
-        return getTxtIcon()+" | "+this.description;
+    public String writeTxt() {
+        return getTxtIcon() + " | " + this.description;
     }
 
     /**
@@ -92,7 +93,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "["+getStatusIcon()+ "] " + this.description;
+        return "[" + getStatusIcon() + "] " + this.description;
     }
 
 }

@@ -1,6 +1,6 @@
 package amos.exceptions;
 
-public class AmosTaskException extends AmosException{
+public class AmosTaskException extends AmosException {
     private final String task;
 
     public AmosTaskException(String task) {
