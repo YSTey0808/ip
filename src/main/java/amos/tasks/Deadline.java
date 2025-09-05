@@ -1,15 +1,15 @@
 package amos.tasks;
 
-import amos.exceptions.AmosTaskException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+import amos.exceptions.AmosTaskException;
+
+public class Deadline extends Task {
     protected final LocalDateTime by;
     protected final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    public Deadline(String des,LocalDateTime by) throws AmosTaskException {
+    public Deadline(String des, LocalDateTime by) throws AmosTaskException {
         super(des);
         this.by = by;
     }

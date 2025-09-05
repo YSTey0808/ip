@@ -1,17 +1,24 @@
 package amos.ui;
 
-import amos.exceptions.*;
-import amos.tasks.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import amos.exceptions.AmosException;
+import amos.exceptions.AmosTaskException;
+import amos.exceptions.AmosTimeException;
+import amos.exceptions.AmosUnfoundTaskException;
+import amos.exceptions.AmosUnknownCommandException;
+import amos.tasks.Deadline;
+import amos.tasks.Event;
+import amos.tasks.Task;
+import amos.tasks.Todo;
+
 public class Parser {
     public static CommandType getCommand(String cmd) throws AmosUnknownCommandException {
         try {
-            return  CommandType.valueOf(cmd.toUpperCase());
-        } catch (IllegalArgumentException  e){
+            return CommandType.valueOf(cmd.toUpperCase());
+        } catch (IllegalArgumentException e) {
             throw new AmosUnknownCommandException(cmd);
         }
     }

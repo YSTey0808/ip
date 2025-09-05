@@ -1,7 +1,7 @@
 package amos.tasks;
 
-public class Todo extends Task{
-    public Todo(String des){
+public class Todo extends Task {
+    public Todo(String des) {
         super(des);
     }
 
@@ -12,6 +12,6 @@ public class Todo extends Task{
 
     @Override
     public String toString() {
-        return "[T]" +  super.toString();
+        return "[T]" + super.toString();
     }
 }

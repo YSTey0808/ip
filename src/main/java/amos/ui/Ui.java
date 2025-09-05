@@ -1,53 +1,54 @@
 package amos.ui;
 
-import amos.tasks.*;
-
 import java.util.Scanner;
 
+import amos.tasks.Task;
+import amos.tasks.TaskList;
+
 public class Ui {
-    public static final String  LINE = "\t------------------------------------------------------------";
+    public static final String LINE = "\t------------------------------------------------------------";
     public static Scanner scan = new Scanner(System.in);
 
-    public String scan(){
+    public String scan() {
         return scan.nextLine();
     }
 
-    public void close(){
+    public void close() {
         scan.close();
     }
 
-    public void printLine(){
+    public void printLine() {
         System.out.println(LINE);
     }
 
-    public void greet(){
+    public void greet() {
         printLine();
         System.out.println("\t Hello! I'm Amos");
         System.out.println("\t What can I do for you?\n");
         printLine();
     }
 
-    public void bye(){
+    public void bye() {
         //Handle bye bye
         System.out.println("\t Bye. Hope to see you again soon!\n");
         printLine();
     }
 
-    public void printList(TaskList lst){
-        if(lst.size() <= 0) {
+    public void printList(TaskList lst) {
+        if (lst.size() <= 0) {
             System.out.println("\t Nothing in the list now.\n");
         } else {
             System.out.println("\t Here are the tasks in your list:");
-            for(int i = 0; i < lst.size(); i++){
-                int j = i+1;
-                System.out.println("\t " + j + ". " + lst.get(i) );
+            for (int i = 0; i < lst.size(); i++) {
+                int j = i + 1;
+                System.out.println("\t " + j + ". " + lst.get(i));
             }
         }
         printLine();
     }
 
-    public void printException(Exception e){
-        System.out.printf("\t %s\n\n",e);
+    public void printException(Exception e) {
+        System.out.printf("\t %s\n\n", e);
         printLine();
     }
 
