@@ -30,4 +30,14 @@ public class TaskList {
         return tasks.size();
     }
 
+    public TaskList find(String des) {
+        TaskList temp = new TaskList();
+        for(Task task: this.tasks){
+            if(task.getDescription().contains(des)){
+                temp.add(task);
+            }
+        }
+        return temp;
+    }
+
 }

@@ -3,5 +3,5 @@ package amos.ui;
 public enum CommandType {
     BYE, LIST, UNMARK,
     TODO, EVENT, DEADLINE,
-    MARK, DELETE,
+    MARK, DELETE, FIND
 }
