@@ -15,7 +15,7 @@ public class Ui {
     /**
      * Separator line for console output
      */
-    public static final String LINE = "\t------------------------------------------------------------";
+    public static final String LINE = "\t----------------------------------------------------------";
 
     /**
      * Scanner for reading user input

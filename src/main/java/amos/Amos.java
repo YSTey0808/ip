@@ -1,6 +1,8 @@
 package amos;
 
 import java.io.IOException;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
@@ -46,11 +48,10 @@ public class Amos {
     /**
      * Constructs an instance of the Amos app with the specified file path.
      *
-     * @param filePath the path to the data file to load and save tasks
      */
-    public Amos(String filePath) {
+    public Amos() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(PATH);
         lst = new TaskList(storage.loadFile());
     }
 
@@ -157,6 +158,8 @@ public class Amos {
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new AmosUnfoundTaskException();
         }
+
+
     }
 
     /**
@@ -246,11 +249,76 @@ public class Amos {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     *
+     * @param input the input from user
+     */
+    public String getResponse(String input) {
+        // Save the current System.out
+        PrintStream originalOut = System.out;
+
+        // Create a buffer to capture output
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        PrintStream printStreams = new PrintStream(stream);
+        System.setOut(printStreams);
+
+        try {
+            // Process the input like in run(), but only once
+            String[] resArr = input.split(" ", 2);
+            CommandType command = Parser.getCommand(resArr[0]);
+            ui.printLine();
+
+            switch (command) {
+            case BYE:
+                bye();
+                break;
+            case LIST:
+                ui.printList(lst);
+                break;
+            case MARK:
+                markAsDone(resArr[1]);
+                break;
+            case UNMARK:
+                unmarkAsDone(resArr[1]);
+                break;
+            case DELETE:
+                delete(resArr[1]);
+                break;
+            case TODO:
+                addTodo(resArr[1]);
+                break;
+            case EVENT:
+                addEvent(resArr[1]);
+                break;
+            case DEADLINE:
+                addDeadline(resArr[1]);
+                break;
+            case FIND:
+                find(resArr[1]);
+                break;
+            default:
+                throw new AmosEmptyException();
+            }
+        } catch (AmosException e) {
+            ui.printException(e);
+        } catch (Exception e) {
+            ui.printError("Unexpected error: " + e.getMessage());
+        } finally {
+            // Restore the original System.out
+            System.setOut(originalOut);
+        }
+
+        // Return whatever was printed
+        return stream.toString();
+    }
+
+
+    /**
      * The entry point of the application.
      *
      * @param args command-line arguments (ignored)
      */
     public static void main(String[] args) {
-        new Amos(PATH).run();
+        new Amos().run();
     }
 }
