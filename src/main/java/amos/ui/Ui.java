@@ -20,7 +20,7 @@ public class Ui {
     /**
      * Scanner for reading user input
      */
-    public static Scanner scan = new Scanner(System.in);
+    private static final Scanner scan = new Scanner(System.in);
 
     /**
      * Reads a line of input from the user.
@@ -180,14 +180,14 @@ public class Ui {
      *
      * @param lst the task list to display
      */
-    public void printFindList(TaskList lst){
-        if(lst.size() <= 0) {
+    public void printFindList(TaskList lst) {
+        if (lst.size() <= 0) {
             System.out.println("\t Can't find such task! PLS try again!\n");
         } else {
             System.out.println("\t Here are the matching tasks in your list:");
-            for(int i = 0; i < lst.size(); i++){
-                int j = i+1;
-                System.out.println("\t " + j + ". " + lst.get(i) );
+            for (int i = 0; i < lst.size(); i++) {
+                int j = i + 1;
+                System.out.println("\t " + j + ". " + lst.get(i));
             }
         }
         printLine();

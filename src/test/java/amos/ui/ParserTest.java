@@ -1,17 +1,22 @@
 package amos.ui;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import amos.exceptions.*;
-import amos.tasks.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
+
+import amos.exceptions.AmosException;
+import amos.exceptions.AmosTaskException;
+import amos.exceptions.AmosTimeException;
+import amos.tasks.Deadline;
+import amos.tasks.Event;
+import amos.tasks.Task;
 
 public class ParserTest {
 
     // 1. Test parseTodo
     @Test
-    void testParseTodo_ValidAndEmpty() throws AmosTaskException {
+    void testParseTodoValidAndEmpty() throws AmosTaskException {
         // Valid Todo
         Task todo = Parser.parseTodo("Read book");
         assertEquals("Read book", todo.getDescription());
@@ -22,7 +27,7 @@ public class ParserTest {
 
     // 2. Test parseDeadline
     @Test
-    void testParseDeadline_ValidAndMissingBy() throws AmosException {
+    void testParseDeadlineValidAndMissingBy() throws AmosException {
         // Valid Deadline
         Deadline deadline = Parser.parseDeadline("Submit report|By:05/09/2025 23:59");
         assertEquals("Submit report", deadline.getDescription());
@@ -34,7 +39,7 @@ public class ParserTest {
 
     // 3. Test parseEvent
     @Test
-    void testParseEvent_ValidAndInvalidTime() throws AmosException {
+    void testParseEventValidAndInvalidTime() throws AmosException {
         // Valid Event
         Event event = Parser.parseEvent("Meeting|From:05/09/2025 10:00|To:05/09/2025 12:00");
         assertEquals("Meeting", event.getDescription());

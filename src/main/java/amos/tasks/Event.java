@@ -12,9 +12,9 @@ import amos.exceptions.AmosException;
  * <p>An Event task has a description, a start time, and an end time.</p>
  */
 public class Event extends Task {
+    protected static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     protected final LocalDateTime from;
     protected final LocalDateTime to;
-    protected final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /**
      * Creates an Event task with a description, start time, and end time.

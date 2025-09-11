@@ -63,8 +63,8 @@ public class Amos {
         while (true) {
             try {
                 String res = ui.scan();
-                String[] res_arr = res.split(" ", 2);
-                CommandType command = Parser.getCommand(res_arr[0]);
+                String[] resArr = res.split(" ", 2);
+                CommandType command = Parser.getCommand(resArr[0]);
                 ui.printLine();
 
                 switch (command) {
@@ -77,31 +77,31 @@ public class Amos {
                     break;
 
                 case MARK:
-                    markAsDone(res_arr[1]);
+                    markAsDone(resArr[1]);
                     break;
 
                 case UNMARK:
-                    unmarkAsDone(res_arr[1]);
+                    unmarkAsDone(resArr[1]);
                     break;
 
                 case DELETE:
-                    delete(res_arr[1]);
+                    delete(resArr[1]);
                     break;
 
                 case TODO:
-                    addTodo(res_arr[1]);
+                    addTodo(resArr[1]);
                     break;
 
                 case EVENT:
-                    addEvent(res_arr[1]);
+                    addEvent(resArr[1]);
                     break;
 
                 case DEADLINE:
-                    addDeadline(res_arr[1]);
+                    addDeadline(resArr[1]);
                     break;
 
                 case FIND:
-                    find(res_arr[1]);
+                    find(resArr[1]);
                     break;
 
                 default:
@@ -128,12 +128,12 @@ public class Amos {
     /**
      * Marks a task as done based on its index.
      *
-     * @param value_str the 1-based index of the task to mark as done
+     * @param valueStr the 1-based index of the task to mark as done
      * @throws AmosException if the task index is invalid or not found
      */
-    public void markAsDone(String value_str) throws AmosException {
+    public void markAsDone(String valueStr) throws AmosException {
         try {
-            int value = Parser.parseIndex(value_str);
+            int value = Parser.parseIndex(valueStr);
             Task task = lst.get(value - 1);
             task.markAsDone();
             ui.printTaskMarked(task);
@@ -145,12 +145,12 @@ public class Amos {
     /**
      * Unmarks a task as not done based on its index.
      *
-     * @param value_str the 1-based index of the task to unmark
+     * @param valueStr the 1-based index of the task to unmark
      * @throws AmosException if the task index is invalid or not found
      */
-    public void unmarkAsDone(String value_str) throws AmosException {
+    public void unmarkAsDone(String valueStr) throws AmosException {
         try {
-            int value = Parser.parseIndex(value_str);
+            int value = Parser.parseIndex(valueStr);
             Task task = lst.get(value - 1);
             task.unmarkAsDone();
             ui.printTaskUnmarked(task);
@@ -244,6 +244,7 @@ public class Amos {
         TaskList temp = lst.find(des);
         ui.printFindList(temp);
     }
+
     /**
      * The entry point of the application.
      *

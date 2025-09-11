@@ -11,8 +11,8 @@ import amos.exceptions.AmosTaskException;
  * <p>A Deadline task has a description and a due date/time.</p>
  */
 public class Deadline extends Task {
+    protected static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     protected final LocalDateTime by;
-    protected final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /**
      * Creates a Deadline task with a description and a due date.

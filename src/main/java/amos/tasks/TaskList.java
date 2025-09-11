@@ -72,8 +72,8 @@ public class TaskList {
      */
     public TaskList find(String des) {
         TaskList temp = new TaskList();
-        for(Task task: this.tasks){
-            if(task.getDescription().contains(des)){
+        for (Task task : this.tasks) {
+            if (task.getDescription().contains(des)) {
                 temp.add(task);
             }
         }
