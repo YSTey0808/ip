@@ -9,7 +9,9 @@ package amos.exceptions;
  * </p>
  */
 public class AmosMarkingException extends AmosException {
-    /** Whether the exception was caused by attempting to mark a task. */
+    /**
+     * Whether the exception was caused by attempting to mark a task.
+     */
     private final boolean mark;
 
     /**

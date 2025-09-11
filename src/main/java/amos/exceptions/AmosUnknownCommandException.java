@@ -9,7 +9,9 @@ package amos.exceptions;
  * </p>
  */
 public class AmosUnknownCommandException extends AmosException {
-    /** The unrecognized command entered by the user. */
+    /**
+     * The unrecognized command entered by the user.
+     */
     private final String command;
 
     /**

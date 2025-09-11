@@ -9,30 +9,48 @@ package amos.ui;
  * </p>
  */
 public enum CommandType {
-    /** Command to exit the application. */
+    /**
+     * Command to exit the application.
+     */
     BYE,
 
-    /** Command to list all tasks. */
+    /**
+     * Command to list all tasks.
+     */
     LIST,
 
-    /** Command to unmark a task as not completed. */
+    /**
+     * Command to unmark a task as not completed.
+     */
     UNMARK,
 
-    /** Command to create a todo task. */
+    /**
+     * Command to create a todo task.
+     */
     TODO,
 
-    /** Command to create an event task. */
+    /**
+     * Command to create an event task.
+     */
     EVENT,
 
-    /** Command to create a deadline task. */
+    /**
+     * Command to create a deadline task.
+     */
     DEADLINE,
 
-    /** Command to mark a task as completed. */
+    /**
+     * Command to mark a task as completed.
+     */
     MARK,
 
-    /** Command to delete a task. */
+    /**
+     * Command to delete a task.
+     */
     DELETE,
 
-    /** Command to find tasks by a search keyword. */
+    /**
+     * Command to find tasks by a search keyword.
+     */
     FIND
 }

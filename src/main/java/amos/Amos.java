@@ -1,7 +1,7 @@
 package amos;
 
-import java.io.IOException;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
@@ -47,7 +47,6 @@ public class Amos {
 
     /**
      * Constructs an instance of the Amos app with the specified file path.
-     *
      */
     public Amos() {
         ui = new Ui();

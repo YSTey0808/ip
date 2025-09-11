@@ -27,6 +27,15 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image amosImage = new Image(this.getClass().getResourceAsStream("/images/DaAmos.png"));
 
+    /**
+     * Initializes the main window of the application.
+     * <p>
+     * This method is automatically called after the FXML components have been loaded.
+     * It sets up the scroll pane to auto-scroll to the bottom as new dialog messages
+     * are added, applies fonts to the user input field and send button, and displays
+     * an initial greeting message from Amos in the dialog container.
+     * </p>
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -38,7 +47,9 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    /** Injects the Amos instance */
+    /**
+     * Injects the Amos instance
+     */
     public void setAmos(Amos d) {
         amos = d;
     }

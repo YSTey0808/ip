@@ -9,7 +9,9 @@ package amos.exceptions;
  * </p>
  */
 public class AmosTaskException extends AmosException {
-    /** The name or type of the task that caused the exception. */
+    /**
+     * The name or type of the task that caused the exception.
+     */
     private final String task;
 
     /**
