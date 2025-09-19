@@ -6,6 +6,7 @@ import java.io.PrintStream;
 import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
+import amos.exceptions.AmosDuplicateException;
 import amos.exceptions.AmosEmptyException;
 import amos.exceptions.AmosException;
 import amos.exceptions.AmosTaskException;
@@ -146,6 +147,8 @@ public class Amos {
             Task task = Parser.parseTodo(des);
             lst.add(task);
             ui.printTaskAdded(task, lst.size());
+        } catch (AmosDuplicateException e){
+            ui.printException(e);
         } catch (AmosTaskException e) {
             ui.printEmptyDescription("todo task");
         }
@@ -164,6 +167,8 @@ public class Amos {
             ui.printTaskAdded(task, lst.size());
         } catch (DateTimeParseException e) {
             ui.printInvalidDateTimeFormat();
+        } catch (AmosDuplicateException e){
+            ui.printException(e);
         } catch (AmosTaskException e) {
             ui.printEmptyDescription("deadline task");
         } catch (Exception e) {
@@ -184,7 +189,7 @@ public class Amos {
             ui.printTaskAdded(task, lst.size());
         } catch (DateTimeParseException e) {
             ui.printInvalidDateTimeFormat();
-        } catch (AmosTimeException e) {
+        } catch (AmosTimeException | AmosDuplicateException e) {
             ui.printException(e);
         } catch (AmosTaskException e) {
             ui.printEmptyDescription("event");
@@ -218,7 +223,7 @@ public class Amos {
      *
      * @param des the description of task want to delete
      */
-    public void find(String des) {
+    public void find(String des) throws AmosDuplicateException {
         TaskList temp = lst.find(des);
         ui.printFindList(temp);
     }

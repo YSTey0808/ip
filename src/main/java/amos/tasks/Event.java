@@ -30,6 +30,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public LocalDateTime getFrom(){
+        return from;
+    }
+
+    public LocalDateTime getTo(){
+        return to;
+    }
+
     @Override
     public String writeTxt() {
         return "E |" + super.writeTxt() + " |From:" + from.format(FORMATTER) + " |To: " + to.format(FORMATTER);
@@ -38,6 +46,14 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(From: " + from.format(FORMATTER) + " |To: " + to.format(FORMATTER) + ")";
+    }
+
+    @Override
+    public boolean isDuplicateOf(Task other) {
+        return other instanceof Event
+                && this.getDescription().equalsIgnoreCase(other.getDescription())
+                && this.getFrom().equals(((Event) other).getFrom())
+                && this.getTo().equals(((Event) other).getTo());
     }
 
 }

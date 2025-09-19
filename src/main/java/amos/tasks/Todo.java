@@ -26,4 +26,10 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public boolean isDuplicateOf(Task other) {
+        return other instanceof Todo
+                && this.getDescription().equalsIgnoreCase(other.getDescription());
+    }
 }

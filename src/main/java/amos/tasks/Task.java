@@ -96,4 +96,8 @@ public class Task {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
+    public boolean isDuplicateOf(Task other) {
+        return this.getDescription().equalsIgnoreCase(other.getDescription());
+    }
+
 }

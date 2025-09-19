@@ -26,6 +26,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public LocalDateTime getBy() {
+        return by;
+    }
+
+
     @Override
     public String writeTxt() {
         return "D |" + super.writeTxt() + " |By:" + by.format(FORMATTER);
@@ -34,5 +39,12 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (By: " + by.format(FORMATTER) + ")";
+    }
+
+    @Override
+    public boolean isDuplicateOf(Task other) {
+        return other instanceof Deadline
+                && this.getDescription().equalsIgnoreCase(other.getDescription())
+                && this.getBy().equals(((Deadline) other).getBy());
     }
 }

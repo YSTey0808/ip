@@ -3,6 +3,10 @@ package amos.tasks;
 import java.util.ArrayList;
 import java.util.List;
 
+import amos.exceptions.AmosDuplicateException;
+import amos.exceptions.AmosException;
+import amos.ui.Ui;
+
 /**
  * Represents a list of tasks.
  *
@@ -33,8 +37,12 @@ public class TaskList {
      *
      * @param t the task to add
      */
-    public void add(Task t) {
-        tasks.add(t);
+    public void add(Task t) throws AmosDuplicateException {
+        if(!isDuplicate(t)){
+            tasks.add(t);
+        } else {
+            throw new AmosDuplicateException();
+        }
     }
 
     /**
@@ -70,7 +78,7 @@ public class TaskList {
      *
      * @return the found task with same description
      */
-    public TaskList find(String des) {
+    public TaskList find(String des) throws AmosDuplicateException {
         TaskList temp = new TaskList();
         for (Task task : this.tasks) {
             if (task.getDescription().contains(des)) {
@@ -78,6 +86,15 @@ public class TaskList {
             }
         }
         return temp;
+    }
+
+    public boolean isDuplicate(Task newTask) {
+        for (Task existing : this.tasks) {
+            if (newTask.isDuplicateOf(existing)) { // delegate to Task itself
+                return true;
+            }
+        }
+        return false;
     }
 
 }
