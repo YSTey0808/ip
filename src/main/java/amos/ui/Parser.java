@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import amos.exceptions.AmosException;
 import amos.exceptions.AmosTaskException;
 import amos.exceptions.AmosTimeException;
-import amos.exceptions.AmosUnfoundTaskException;
+import amos.exceptions.AmosUnfoundedTaskException;
 import amos.exceptions.AmosUnknownCommandException;
 import amos.tasks.Deadline;
 import amos.tasks.Event;
@@ -28,6 +28,11 @@ import amos.tasks.Todo;
  * </p>
  */
 public class Parser {
+    private static final String FROM = "|From:";
+    private static final String TO = "|To:";
+    private static final String BY = "|By:";
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /**
      * Converts a string command into a {@link CommandType}.
@@ -38,15 +43,14 @@ public class Parser {
      */
     public static CommandType getCommand(String cmd) throws AmosUnknownCommandException {
         try {
-            return CommandType.valueOf(cmd.toUpperCase());
+            return CommandType.valueOf(cmd.trim().toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new AmosUnknownCommandException(cmd);
         }
     }
 
     private static LocalDateTime parseDateTime(String input) throws DateTimeParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return LocalDateTime.parse(input.trim(), formatter);
+        return LocalDateTime.parse(input.trim(), FORMATTER);
     }
 
     /**
@@ -74,8 +78,8 @@ public class Parser {
         if (des == null || des.trim().isEmpty()) {
             throw new AmosTaskException("event");
         }
-        int fromIndex = des.indexOf("|From:");
-        int toIndex = des.indexOf("|To:");
+        int fromIndex = des.indexOf(FROM);
+        int toIndex = des.indexOf(TO);
         if (fromIndex == -1 || toIndex == -1) {
             throw new AmosTaskException("event");
         }
@@ -103,7 +107,7 @@ public class Parser {
             throw new AmosTaskException("deadline");
         }
 
-        int byIndex = des.indexOf("|By:");
+        int byIndex = des.indexOf(BY);
         if (byIndex == -1) {
             throw new AmosTaskException("deadline");
         }
@@ -119,14 +123,13 @@ public class Parser {
      *
      * @param str the string representing a 1-based index
      * @return the 0-based index
-     * @throws AmosUnfoundTaskException if the string is not a valid number
+     * @throws AmosUnfoundedTaskException if the string is not a valid number
      */
-    public static int parseIndex(String str) throws AmosUnfoundTaskException {
-
+    public static int parseIndex(String str) throws AmosUnfoundedTaskException {
         try {
             return Integer.parseInt(str.trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new AmosUnfoundTaskException();
+            throw new AmosUnfoundedTaskException();
         }
     }
 }

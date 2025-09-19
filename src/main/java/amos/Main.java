@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Amos amos = new Amos();
+    private final Amos amos = new Amos();
 
     @Override
     public void start(Stage stage) {
@@ -27,5 +27,7 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //Handle window close
+        stage.setOnCloseRequest(event -> amos.bye());
     }
 }

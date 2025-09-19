@@ -10,7 +10,7 @@ import amos.exceptions.AmosEmptyException;
 import amos.exceptions.AmosException;
 import amos.exceptions.AmosTaskException;
 import amos.exceptions.AmosTimeException;
-import amos.exceptions.AmosUnfoundTaskException;
+import amos.exceptions.AmosUnfoundedTaskException;
 import amos.storage.Storage;
 import amos.tasks.Task;
 import amos.tasks.TaskList;
@@ -63,53 +63,28 @@ public class Amos {
         while (true) {
             try {
                 String res = ui.scan();
-                String[] resArr = res.split(" ", 2);
-                CommandType command = Parser.getCommand(resArr[0]);
-                ui.printLine();
-
-                switch (command) {
-                case BYE:
-                    bye();
-                    return;
-
-                case LIST:
-                    ui.printList(lst);
-                    break;
-
-                case MARK:
-                    markAsDone(resArr[1]);
-                    break;
-
-                case UNMARK:
-                    unmarkAsDone(resArr[1]);
-                    break;
-
-                case DELETE:
-                    delete(resArr[1]);
-                    break;
-
-                case TODO:
-                    addTodo(resArr[1]);
-                    break;
-
-                case EVENT:
-                    addEvent(resArr[1]);
-                    break;
-
-                case DEADLINE:
-                    addDeadline(resArr[1]);
-                    break;
-
-                case FIND:
-                    find(resArr[1]);
-                    break;
-
-                default:
-                    throw new AmosEmptyException();
-                }
+                executeCommand(res);
             } catch (AmosException e) {
                 ui.printException(e);
             }
+        }
+    }
+
+    private void executeCommand(String res) throws AmosException {
+        String[] resArr = res.split(" ", 2);
+        CommandType command = Parser.getCommand(resArr[0]);
+
+        switch (command) {
+        case BYE -> bye();
+        case LIST -> ui.printList(lst);
+        case MARK -> markAsDone(resArr[1]);
+        case UNMARK -> unmarkAsDone(resArr[1]);
+        case DELETE -> delete(resArr[1]);
+        case TODO -> addTodo(resArr[1]);
+        case EVENT -> addEvent(resArr[1]);
+        case DEADLINE -> addDeadline(resArr[1]);
+        case FIND -> find(resArr[1]);
+        default -> throw new AmosEmptyException();
         }
     }
 
@@ -138,7 +113,7 @@ public class Amos {
             task.markAsDone();
             ui.printTaskMarked(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new AmosUnfoundTaskException();
+            throw new AmosUnfoundedTaskException();
         }
     }
 
@@ -155,7 +130,7 @@ public class Amos {
             task.unmarkAsDone();
             ui.printTaskUnmarked(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new AmosUnfoundTaskException();
+            throw new AmosUnfoundedTaskException();
         }
 
 
@@ -232,7 +207,7 @@ public class Amos {
             ui.printTaskDeleted(tsk, lst.size());
         } catch (IndexOutOfBoundsException e) {
             ui.printInvalidDelete();
-        } catch (AmosUnfoundTaskException e) {
+        } catch (AmosUnfoundedTaskException e) {
             ui.printException(e);
         }
     }
@@ -262,42 +237,7 @@ public class Amos {
         System.setOut(printStreams);
 
         try {
-            // Process the input like in run(), but only once
-            String[] resArr = input.split(" ", 2);
-            CommandType command = Parser.getCommand(resArr[0]);
-            ui.printLine();
-
-            switch (command) {
-            case BYE:
-                bye();
-                break;
-            case LIST:
-                ui.printList(lst);
-                break;
-            case MARK:
-                markAsDone(resArr[1]);
-                break;
-            case UNMARK:
-                unmarkAsDone(resArr[1]);
-                break;
-            case DELETE:
-                delete(resArr[1]);
-                break;
-            case TODO:
-                addTodo(resArr[1]);
-                break;
-            case EVENT:
-                addEvent(resArr[1]);
-                break;
-            case DEADLINE:
-                addDeadline(resArr[1]);
-                break;
-            case FIND:
-                find(resArr[1]);
-                break;
-            default:
-                throw new AmosEmptyException();
-            }
+            executeCommand(input);
         } catch (AmosException e) {
             ui.printException(e);
         } catch (Exception e) {
