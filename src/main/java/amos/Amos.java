@@ -65,6 +65,8 @@ public class Amos {
             try {
                 String res = ui.scan();
                 executeCommand(res);
+            } catch (IndexOutOfBoundsException e) {
+                ui.printException(new AmosTaskException("task"));
             } catch (AmosException e) {
                 ui.printException(e);
             }
@@ -110,8 +112,8 @@ public class Amos {
     public void markAsDone(String valueStr) throws AmosException {
         try {
             int value = Parser.parseIndex(valueStr);
-            Task task = lst.get(value - 1);
-            assert task != null : "Task at index " + (value - 1) + " should not be null";
+            Task task = lst.get(value);
+            assert task != null : "Task at index " + (value) + " should not be null";
             task.markAsDone();
             ui.printTaskMarked(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -128,8 +130,8 @@ public class Amos {
     public void unmarkAsDone(String valueStr) throws AmosException {
         try {
             int value = Parser.parseIndex(valueStr);
-            Task task = lst.get(value - 1);
-            assert task != null : "Task at index " + (value - 1) + " should not be null";
+            Task task = lst.get(value);
+            assert task != null : "Task at index " + (value) + " should not be null";
             task.unmarkAsDone();
             ui.printTaskUnmarked(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -147,7 +149,7 @@ public class Amos {
             Task task = Parser.parseTodo(des);
             lst.add(task);
             ui.printTaskAdded(task, lst.size());
-        } catch (AmosDuplicateException e){
+        } catch (AmosDuplicateException e) {
             ui.printException(e);
         } catch (AmosTaskException e) {
             ui.printEmptyDescription("todo task");
@@ -167,7 +169,7 @@ public class Amos {
             ui.printTaskAdded(task, lst.size());
         } catch (DateTimeParseException e) {
             ui.printInvalidDateTimeFormat();
-        } catch (AmosDuplicateException e){
+        } catch (AmosDuplicateException e) {
             ui.printException(e);
         } catch (AmosTaskException e) {
             ui.printEmptyDescription("deadline task");
@@ -207,9 +209,9 @@ public class Amos {
     public void delete(String des) {
         try {
             int value = Parser.parseIndex(des);
-            Task tsk = lst.get(value - 1);
-            assert tsk != null : "Task at index " + (value - 1) + " should not be null";
-            lst.delete(value - 1);
+            Task tsk = lst.get(value);
+            assert tsk != null : "Task at index " + (value) + " should not be null";
+            lst.delete(value);
             ui.printTaskDeleted(tsk, lst.size());
         } catch (IndexOutOfBoundsException e) {
             ui.printInvalidDelete();
@@ -244,6 +246,8 @@ public class Amos {
 
         try {
             executeCommand(input);
+        } catch (IndexOutOfBoundsException e) {
+            ui.printException(new AmosTaskException("task"));
         } catch (AmosException e) {
             ui.printException(e);
         } catch (Exception e) {

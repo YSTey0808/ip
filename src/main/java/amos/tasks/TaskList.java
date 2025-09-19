@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import amos.exceptions.AmosDuplicateException;
-import amos.exceptions.AmosException;
-import amos.ui.Ui;
 
 /**
  * Represents a list of tasks.
@@ -38,11 +36,20 @@ public class TaskList {
      * @param t the task to add
      */
     public void add(Task t) throws AmosDuplicateException {
-        if(!isDuplicate(t)){
+        if (!isDuplicate(t)) {
             tasks.add(t);
         } else {
             throw new AmosDuplicateException();
         }
+    }
+
+    /**
+     * Adds a task to the list without validating duplicate.
+     *
+     * @param tsk the task to add
+     */
+    public void findAdd(Task tsk) {
+        tasks.add(tsk);
     }
 
     /**
@@ -78,16 +85,32 @@ public class TaskList {
      *
      * @return the found task with same description
      */
-    public TaskList find(String des) throws AmosDuplicateException {
+    public TaskList find(String des) {
         TaskList temp = new TaskList();
         for (Task task : this.tasks) {
             if (task.getDescription().contains(des)) {
-                temp.add(task);
+                temp.findAdd(task);
             }
         }
         return temp;
     }
 
+    /**
+     * Checks whether the given task is a duplicate of any task in the list.
+     *
+     * <p>This method iterates through all tasks in the current TaskList and
+     * delegates the duplicate check to the {@code isDuplicateOf} method of the
+     * Task class. A task is considered a duplicate if it matches an existing
+     * task according to its type-specific criteria:
+     * <ul>
+     *     <li>Todo: duplicate if description matches</li>
+     *     <li>Deadline: duplicate if description and due date match</li>
+     *     <li>Event: duplicate if description, start time, and end time match</li>
+     * </ul>
+     *
+     * @param newTask the task to check for duplicates
+     * @return {@code true} if a duplicate task exists in the list, {@code false} otherwise
+     */
     public boolean isDuplicate(Task newTask) {
         for (Task existing : this.tasks) {
             if (newTask.isDuplicateOf(existing)) { // delegate to Task itself

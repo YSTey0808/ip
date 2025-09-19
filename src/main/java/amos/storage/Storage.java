@@ -26,8 +26,6 @@ import amos.ui.Parser;
  * and writing the tasks back to the file.</p>
  */
 public class Storage {
-    private final String filePath;
-
     // Task type constants
     private static final String TODO_TYPE = "T";
     private static final String DEADLINE_TYPE = "D";
@@ -35,6 +33,8 @@ public class Storage {
 
     // Status constants
     private static final String MARK_DONE = "1";
+
+    private final String filePath;
 
     private boolean dateChecker = true;
 
@@ -65,7 +65,7 @@ public class Storage {
                 } catch (DateTimeParseException e) {
                     dateChecker();
                 } catch (AmosException e) {
-                        System.out.printf("\t %s\n\n", e);
+                    System.out.printf("\t %s\n\n", e);
                 }
             }
             sc.close();
@@ -77,9 +77,9 @@ public class Storage {
     }
 
     /**
-    * Check whether error printed before
-    */
-    public void dateChecker(){
+     * Check whether error printed before
+     */
+    public void dateChecker() {
         if (dateChecker) {
             System.out.println("\t Make sure the start/end time in the format of <DD/MM/YY HH:MM>!\n");
             this.dateChecker = false;
@@ -118,10 +118,10 @@ public class Storage {
         String marking = input[1].trim();
         String description = input[2].trim();
         Task tsk = switch (command) {
-            case TODO_TYPE -> new Todo(description);
-            case EVENT_TYPE -> Parser.parseEvent(description);
-            case DEADLINE_TYPE -> Parser.parseDeadline(description);
-            default -> throw new AmosUnknownCommandException(command);
+        case TODO_TYPE -> new Todo(description);
+        case EVENT_TYPE -> Parser.parseEvent(description);
+        case DEADLINE_TYPE -> Parser.parseDeadline(description);
+        default -> throw new AmosUnknownCommandException(command);
         };
 
         if (marking.equals(MARK_DONE)) {

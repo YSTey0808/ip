@@ -30,11 +30,11 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public LocalDateTime getFrom(){
+    public LocalDateTime getFrom() {
         return from;
     }
 
-    public LocalDateTime getTo(){
+    public LocalDateTime getTo() {
         return to;
     }
 

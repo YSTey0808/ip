@@ -3,17 +3,16 @@ package amos.ui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 
 import amos.exceptions.AmosException;
 import amos.exceptions.AmosTaskException;
 import amos.exceptions.AmosTimeException;
-import amos.exceptions.AmosUnfoundedTaskException;
 import amos.tasks.Deadline;
 import amos.tasks.Event;
 import amos.tasks.Task;
-
-import java.time.LocalDateTime;
 
 public class ParserTest {
 

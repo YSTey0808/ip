@@ -36,8 +36,8 @@ public class Ui {
      * Prints a greeting message when the app starts.
      */
     public void greet() {
-        System.out.println("\t Hello! I'm Amos");
-        System.out.println("\t What can I do for you?\n");
+        System.out.println("Hello! I'm Amos");
+        System.out.println("What can I do for you?\n");
     }
 
     /**
@@ -45,7 +45,7 @@ public class Ui {
      */
     public void bye() {
         //Handle bye bye
-        System.out.println("\t Bye. Hope to see you again soon!\n");
+        System.out.println("Bye. Hope to see you again soon!\n");
 
     }
 
