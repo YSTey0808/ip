@@ -110,6 +110,7 @@ public class Amos {
         try {
             int value = Parser.parseIndex(valueStr);
             Task task = lst.get(value - 1);
+            assert task != null : "Task at index " + (value - 1) + " should not be null";
             task.markAsDone();
             ui.printTaskMarked(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -127,13 +128,12 @@ public class Amos {
         try {
             int value = Parser.parseIndex(valueStr);
             Task task = lst.get(value - 1);
+            assert task != null : "Task at index " + (value - 1) + " should not be null";
             task.unmarkAsDone();
             ui.printTaskUnmarked(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new AmosUnfoundedTaskException();
         }
-
-
     }
 
     /**
@@ -203,6 +203,7 @@ public class Amos {
         try {
             int value = Parser.parseIndex(des);
             Task tsk = lst.get(value - 1);
+            assert tsk != null : "Task at index " + (value - 1) + " should not be null";
             lst.delete(value - 1);
             ui.printTaskDeleted(tsk, lst.size());
         } catch (IndexOutOfBoundsException e) {
@@ -248,9 +249,10 @@ public class Amos {
         }
 
         // Return whatever was printed
-        return stream.toString();
+        String output = stream.toString();
+        assert output != null : "Response string should not be null";
+        return output;
     }
-
 
     /**
      * The entry point of the application.
