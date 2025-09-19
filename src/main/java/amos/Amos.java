@@ -52,6 +52,8 @@ public class Amos {
         ui = new Ui();
         storage = new Storage(PATH);
         lst = new TaskList(storage.loadFile());
+
+
     }
 
     /**
@@ -65,7 +67,7 @@ public class Amos {
                 String res = ui.scan();
                 String[] resArr = res.split(" ", 2);
                 CommandType command = Parser.getCommand(resArr[0]);
-                ui.printLine();
+                assert command != null : "Command should not be null";
 
                 switch (command) {
                 case BYE:
@@ -107,6 +109,8 @@ public class Amos {
                 default:
                     throw new AmosEmptyException();
                 }
+            } catch (IndexOutOfBoundsException e) {
+                ui.printError("Please check your input for the task again!");
             } catch (AmosException e) {
                 ui.printException(e);
             }
@@ -135,6 +139,7 @@ public class Amos {
         try {
             int value = Parser.parseIndex(valueStr);
             Task task = lst.get(value - 1);
+            assert task != null : "Task at index " + (value - 1) + " should not be null";
             task.markAsDone();
             ui.printTaskMarked(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -152,13 +157,12 @@ public class Amos {
         try {
             int value = Parser.parseIndex(valueStr);
             Task task = lst.get(value - 1);
+            assert task != null : "Task at index " + (value - 1) + " should not be null";
             task.unmarkAsDone();
             ui.printTaskUnmarked(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new AmosUnfoundTaskException();
         }
-
-
     }
 
     /**
@@ -228,6 +232,7 @@ public class Amos {
         try {
             int value = Parser.parseIndex(des);
             Task tsk = lst.get(value - 1);
+            assert tsk != null : "Task at index " + (value - 1) + " should not be null";
             lst.delete(value - 1);
             ui.printTaskDeleted(tsk, lst.size());
         } catch (IndexOutOfBoundsException e) {
@@ -265,7 +270,6 @@ public class Amos {
             // Process the input like in run(), but only once
             String[] resArr = input.split(" ", 2);
             CommandType command = Parser.getCommand(resArr[0]);
-            ui.printLine();
 
             switch (command) {
             case BYE:
@@ -298,6 +302,9 @@ public class Amos {
             default:
                 throw new AmosEmptyException();
             }
+
+        } catch (IndexOutOfBoundsException e) {
+            ui.printError("Please check your input for the task again!");
         } catch (AmosException e) {
             ui.printException(e);
         } catch (Exception e) {
@@ -308,9 +315,11 @@ public class Amos {
         }
 
         // Return whatever was printed
-        return stream.toString();
-    }
+        String output = stream.toString();
+        assert output != null : "Response string should not be null";
+        return output;
 
+    }
 
     /**
      * The entry point of the application.
