@@ -8,7 +8,7 @@ package amos.exceptions;
  * user attempted to access or modify a task that does not exist.
  * </p>
  */
-public class AmosUnfoundTaskException extends AmosException {
+public class AmosUnfoundedTaskException extends AmosException {
 
     /**
      * Returns a string representation of this exception with a message
