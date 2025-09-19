@@ -12,10 +12,6 @@ import amos.tasks.TaskList;
  * printing task lists, and showing errors or notifications to the user.</p>
  */
 public class Ui {
-    /**
-     * Separator line for console output
-     */
-    public static final String LINE = "\t----------------------------------------------------------";
 
     /**
      * Scanner for reading user input
@@ -37,20 +33,12 @@ public class Ui {
 
 
     /**
-     * Prints a separator line.
-     */
-    public void printLine() {
-        System.out.println(LINE);
-    }
-
-    /**
      * Prints a greeting message when the app starts.
      */
     public void greet() {
-        printLine();
         System.out.println("\t Hello! I'm Amos");
         System.out.println("\t What can I do for you?\n");
-        printLine();
+
     }
 
     /**
@@ -59,7 +47,7 @@ public class Ui {
     public void bye() {
         //Handle bye bye
         System.out.println("\t Bye. Hope to see you again soon!\n");
-        printLine();
+
     }
 
     /**
@@ -77,7 +65,7 @@ public class Ui {
                 System.out.println("\t " + j + ". " + lst.get(i));
             }
         }
-        printLine();
+
     }
 
     /**
@@ -87,7 +75,7 @@ public class Ui {
      */
     public void printException(Exception e) {
         System.out.printf("\t %s\n\n", e);
-        printLine();
+
     }
 
     /**
@@ -98,7 +86,7 @@ public class Ui {
     public void printError(String msg) {
         System.out.println("Sry, there might have error somewhere!");
         System.out.println("\t " + msg);
-        printLine();
+
     }
 
     /**
@@ -109,7 +97,7 @@ public class Ui {
     public void printTaskMarked(Task task) {
         System.out.println("\t Nice! I've marked this task as done:");
         System.out.println("\t " + task + "\n");
-        printLine();
+
     }
 
     /**
@@ -120,7 +108,7 @@ public class Ui {
     public void printTaskUnmarked(Task task) {
         System.out.println("\t OK! I've unmarked this task as done:");
         System.out.println("\t " + task + "\n");
-        printLine();
+
     }
 
     /**
@@ -133,7 +121,7 @@ public class Ui {
         System.out.println("\t Got it. I've added this task: ");
         System.out.println("\t\t" + task);
         System.out.println("\t Now you have " + size + " tasks in the list.\n");
-        printLine();
+
     }
 
     /**
@@ -146,7 +134,7 @@ public class Ui {
         System.out.println("\t Noted. I've removed this task:");
         System.out.println("\t\t" + task);
         System.out.println("\t Now you have " + size + " tasks in the list.\n");
-        printLine();
+
     }
 
     /**
@@ -156,7 +144,7 @@ public class Ui {
      */
     public void printEmptyDescription(String type) {
         System.out.println("\t OOPS!!! The description of a " + type + " cannot be empty.\n");
-        printLine();
+
     }
 
     /**
@@ -164,7 +152,7 @@ public class Ui {
      */
     public void printInvalidDateTimeFormat() {
         System.out.println("\t Please enter the start/end time in the format of <DD/MM/YYYY HH:MM>!\n");
-        printLine();
+
     }
 
     /**
@@ -172,7 +160,7 @@ public class Ui {
      */
     public void printInvalidDelete() {
         System.out.println("\t No such task to be deleted.\n");
-        printLine();
+
     }
 
     /**
@@ -190,6 +178,6 @@ public class Ui {
                 System.out.println("\t " + j + ". " + lst.get(i));
             }
         }
-        printLine();
+
     }
 }
